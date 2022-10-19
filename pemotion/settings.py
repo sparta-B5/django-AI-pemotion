@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Custom App
     'user',
     'diary',
+    'pet',
 ]
 
 MIDDLEWARE = [
