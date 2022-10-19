@@ -7,7 +7,6 @@
 <!-- head 하단부분 -->
 {% block extra_head %}
     <link rel="stylesheet" href="{% static "css/sns.css" %}">
-
     <!-- 페이지 meta태그 -->
     <meta name=”description” content=”페이지 설명”>
     <meta name=”keywords” content=”페이지에,들어간,키워드,단어로,입력,구분은,쉼표로”>
@@ -23,6 +22,19 @@
 
 <!-- body부분 -->
 {% block content %}
+
+
+
+{% for diary in all_diary  %}
+    <a href="/diary/{{diary.id}}">
+        
+        <div>
+            {{ diary.content}}
+        </div>
+    </a>
+{%endfor%}
+
+
 {% endblock %}
 
 <!-- body 맨 하단부분 : 보통 js -->

@@ -4,7 +4,8 @@ from . import views
 
 urlpatterns = [
     path('', views.main, name='main'),
-    path('feed/create/', views.feed_create, name='feed_create'),
-    path('feed/<int:id>', views.feed_detail, name='feed_detail'),
-    path('feed/delete/<int:id>', views.feed_delete, name='feed_delete'),
+    path('diary/', views.diary_create, name='diary_create'),
+    path('diary/<int:id>', views.diary_detail, name='diary_detail'),
+    path('diary/update/<int:id>', views.diary_update, name='diary_update'),
+    path('diary/delete/<int:id>', views.diary_delete, name='diary_delete'),
 ]

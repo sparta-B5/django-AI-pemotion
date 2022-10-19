@@ -1,6 +1,69 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Feed
+from .models import Diary
+from django.contrib import messages
 
 # Create your views here.
 def main(request):
-    return render(request,'diary/index.html')
+    #메인
+    # user = request.user.is_authenticated
+    # if user:
+    all_diary = Diary.objects.all().order_by('-created_at')
+    context={
+        "all_diary":all_diary
+    }
+    return render(request,'diary/index.html', context)
+    # else:
+    # return render(request, 'diary/index.html')
+
+def diary_detail(request,id):
+    #게시글 상세페이지
+    target_diary= Diary.objects.get(id=id) #왼쪽id DB에 있는 id, 오른쪽이 가져온거
+    target={
+        'diary':target_diary
+    }
+    return render(request, 'diary/diary.html', target)
+
+def diary_create(request):
+    #게시글 작성하기
+    if request.method == 'GET':
+        return redirect ('/')
+
+    elif request.method == 'POST':
+        # my_user= request.user
+        new_diary = Diary()
+        # new_diary.user = my_user
+        new_diary.content = request.POST.get('my-content')
+        new_diary.save()
+        # 게시글 작성후 작성한 게시글 상세페이지로 이동
+        new_diary_id = Diary.objects.last().id
+        messages.add_message(request,messages.SUCCESS,'게시글이 작성되었습니다.')
+        return redirect (f'/diary/{new_diary_id}')
+
+def diary_update(request, id):
+    diary = Diary.objects.get(id=id)
+    if request.method == 'POST':
+        update_diary = diary()
+        update_diary.auther= update_diary
+        update_diary= request.POST.get('my-content')
+        
+        update_diary.save()
+        
+        return render(request, 'index.html')
+    else:
+       return redirect ('/') 
+
+def diary_delete(request,id):
+    target_diary = Diary.objects.get(id=id)
+    # 게시물 작성자, 관리자만 삭제 가능
+    if (target_diary.author == request.user.username):
+        target_diary.delete()
+        messages.add_message(request,messages.SUCCESS,'삭제되었습니다.')
+        return redirect('/')
+    elif request.user.is_staff:
+        target_diary.delete()
+        messages.add_message(request,messages.SUCCESS,'관리자 권한으로 삭제되었습니다.')
+        return redirect('/')
+    else:
+        messages.add_message(request,messages.ERROR,'본인 게시글이 아닙니다.')
+        return redirect(f'/diary/{id}') 
