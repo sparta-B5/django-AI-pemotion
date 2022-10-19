@@ -8,7 +8,7 @@ from .models import User
 def sign_up(request) :
     # 요청방식이 GET(값을읽어올때)이면 html로
     if request.method == 'GET' :
-        return render(request,'user/sign_up.html') 
+        return render(request,'user/sign-up.html') 
     # 요청방식이 POST(값을주거나/수정/삭제)이면 회원가입으로
     elif request.method == 'POST':
         username = request.POST.get('username')
