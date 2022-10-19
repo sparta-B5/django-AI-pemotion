@@ -5,10 +5,10 @@ from .models import User
 # Create your views here.
 
 #회원가입
-def signup(request) :
+def sign_up(request) :
     # 요청방식이 GET(값을읽어올때)이면 html로
     if request.method == 'GET' :
-        return render(request,'user/signup.html') 
+        return render(request,'user/sign_up.html') 
     # 요청방식이 POST(값을주거나/수정/삭제)이면 회원가입으로
     elif request.method == 'POST':
         username = request.POST.get('username')
@@ -22,4 +22,5 @@ def signup(request) :
             return HttpResponse("비밀번호 확인 틀렸습니다")
             
        
-    
+   #로그인
+   
