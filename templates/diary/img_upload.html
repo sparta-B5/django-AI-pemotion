@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- head 타이틀부분 -->
+{% block title %}페이지제목 | {% endblock %}
+
+<!-- head 하단부분 -->
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static "css/sns.css" %}">
+
+    <!-- 페이지 meta태그 -->
+    <meta name=”description” content=”페이지 설명”>
+    <meta name=”keywords” content=”페이지에,들어간,키워드,단어로,입력,구분은,쉼표로”>
+    <meta property="og:site_name" content="The Rock" />
+    <meta property="og:title" content="The Rock Content" />
+    <meta property="og:description" content="Sean Connery found fame and fortune as the suave, sophisticated British agent, James Bond." />	
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.imdb.com/title/tt0117500/" />
+    <meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+{% endblock %}
+
+<!-- body부분 -->
+{% block content %}
+    <div class="container">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    
+        업로드 : 
+        <input name="image" type="file">
+        <br><br>
+
+        <input class="btn btn-primary" type="submit" value="글 작성">
+    </form>
+  </div>
+{% endblock %}
+
+<!-- body 맨 하단부분 : 보통 js -->
+{% block extra_body %}
+    <div>
+        
+    </div>
+    <script src="{% static 'js/feed.js' %}"></script>
+{% endblock %}
