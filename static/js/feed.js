@@ -32,6 +32,9 @@ $("#staticBackdrop").on("show.bs.modal",function(event){
         $(this).find("form").attr("action",form_url);
         let form_content = $("#feed_"+target_id).find(".feed_content").text();
         $(this).find("form textarea").val(form_content);
+        let form_img = $("#feed_"+target_id).find(".feed-images img").attr("src")
+        console.log(form_img)
+        $(this).find("form .image_name").text();
 
     }else{
         console.log("create");
@@ -39,5 +42,6 @@ $("#staticBackdrop").on("show.bs.modal",function(event){
         let form_url = '/diary/'
         $(this).find("form").attr("action",form_url);
         $(this).find("form textarea").val("");
+        $(this).find("form .image_name").text("");
     }
 });

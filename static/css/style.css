@@ -92,6 +92,9 @@ footer {
 .modalFeedForm .modal-footer{
     border-top:0;
 }
+.modalFeedForm .form-control{
+    margin-bottom: 20px;
+}
 .modalFeedForm .form-control:focus{
     box-shadow: unset;
 }

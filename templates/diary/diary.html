@@ -17,12 +17,12 @@
 {% endblock %}
 
 {% block content %}
-    <section class="section_feed_detail feed_card_text">
+    <section class="{% if diary.image %}section_feed_detail{% else %}section_feed_detail feed_card_text {% endif%}">
         <div class="container">
-            <div class="feed_card feed_card_detail flex">
+            <div class="feed_card_detail feed_card flex " id="feed_{{ diary.id }}">
                 <div class="feed_card_left">
                     <div class="feed-images">
-                        <img src="https://s3.ap-northeast-2.amazonaws.com/blog.spartacodingclub.kr/1655106626116-nb_og%20image.jpg">
+                        <img src="{% if diary.image %} {{ diary.image.url }} {% else %}#{% endif%}">
                     </div>
                 </div>
                 <div class="feed_card_right">
@@ -46,10 +46,10 @@
                             <div class="profile_image">
                                 <img src="https://intermusicakorea.com/common/img/default_profile.png">
                             </div>
-                            <div class="feed_content card_content">
+                            <div class="card_content">
                                 <p> {% comment %} navbar 작성버튼 {% endcomment %}
-                                    <span class="feed_author profile_username"><a href="#">{{ diary.user }}</a></span>
-                                    {{ diary.content }}
+                                    <span class="feed_author profile_username"><a href="#">diary.user</a></span>
+                                    <p class="feed_content">{{ diary.content }}</p>
                                 </p>
                                 <p><time class="feed_time sm_time" datetime="{{ diary.created_at }}" title="{{ diary.created_at }}">
                                     {{ diary.created_at|timesince }}
@@ -57,6 +57,18 @@
                             </div>
                         </div>
                     </div>
+                    {% if diary.image %}
+                        <div class="card_footer">
+                            <div class="diary_emotion feed_line flex flex-align-items-center">
+                                <div class="profile_image">
+                                    <img src="/static/images/emoji_{{diary.emotion_label}}.png">
+                                </div>
+                                <div class="diary_emotion_content card_content">
+                                    <p> {{diary.emotion_label}} <span class="font-sm color-gray">( {{diary.emotion_percent}}% )</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif%}
                 </div>
             </div>
         </div>

@@ -6,12 +6,22 @@
     justify-content: center;
     align-items: center;
 }
+.flex-align-items-center{
+    align-items: center;
+}
 .flex.flex_column{
     flex-direction: column;
 }
 .flex-item-right{
     margin-left: auto;
     margin-right: 0;
+}
+
+.font-sm{
+    font-size: 0.8em;
+}
+.color-gray{
+    color: #333
 }
 
 button.btn{
@@ -126,7 +136,20 @@ a.btn:active, a.btn:focus, a.btn:hover{
     margin-bottom: 0;
     border-bottom: solid 1px  rgb(219, 219, 219);
 }
-
+.feed_card .card_body{
+    padding-bottom: 16px;
+}
+.feed_card .diary_emotion{
+    border-bottom: solid 1px  rgb(219, 219, 219);
+    padding: 6px 16px 8px;
+}
+.feed_card .diary_emotion .profile_image{
+    max-width: 24px;
+    max-height: 24px;
+}
+.feed_card .diary_emotion .diary_emotion_content{
+    margin-bottom: 0;
+}
 .feed_card .feed-images>img{
     width: 100%;
 }
@@ -351,11 +374,12 @@ ul.follow_list>li{
     height: 32px;
 }
 .feed_card_detail .card_body{
-    padding: 16px 16px 32px;
+    width: 100%;
+    padding: 16px 0px 32px;
     position: absolute;
     min-height: 400px;
     height: 100%;
-    max-height: calc(100% - 57px - 170px);
+    max-height: calc(100% - 57px);
 
     overflow: auto;
     overscroll-behavior: none;
@@ -367,12 +391,26 @@ ul.follow_list>li{
 }
 .feed_line, .feed_comment_line{
     margin-bottom: 16px;
+    padding: 0 16px
+}
+.feed_card_detail .diary_emotion{
+    border-bottom: 0;
+    padding:16px;
+    margin-bottom: 0px
+}
+.feed_card .diary_emotion_content{
+    height: 100%;
+    overflow: visible;
+    display:block;
+    word-break:keep-all;
+    text-transform: uppercase;
 }
 .feed_card_detail .card_content{
     height: 100%;
     overflow: visible;
     display:block;
     word-break:keep-all;
+    margin-bottom: 0;
 }
 .feed_card_detail .sm_time{
     color: #8e8e8e;
