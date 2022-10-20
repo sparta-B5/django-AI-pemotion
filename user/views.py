@@ -37,10 +37,9 @@ def sign_in(request):
         
         if user is not None:
            login(request, user)   
-           return render(request, 'base.html')  
+           return redirect('/')  
         else: 
             return render(request, 'user/sign-in.html')
-    
     
     
 #로그아웃
