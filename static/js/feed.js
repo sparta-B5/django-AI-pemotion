@@ -34,7 +34,7 @@ $("#staticBackdrop").on("show.bs.modal",function(event){
         $(this).find("form textarea").val(form_content);
         let form_img = $("#feed_"+target_id).find(".feed-images img").attr("src")
         console.log(form_img)
-        $(this).find("form .image_name").text();
+        $(this).find("form .image_name").text(form_img);
 
     }else{
         console.log("create");
