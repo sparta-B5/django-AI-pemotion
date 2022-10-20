@@ -72,21 +72,29 @@ def diary_update(request, id):
     elif request.method == 'POST':
         if diary.user == request.user:
             
-            diary.content = request.POST.get('my-content')
-            prev_image_url = diary.image.url
-            try:
-                diary.image = request.FILES['image']
-            except:
-                pass
-            diary.save()
+          diary.content = request.POST.get('my-content')
 
+          # 저장여부 판별 : 이전에 저장한 이미지 주소
+          prev_image_url = ""
+          if(diary.image):
+            prev_image_url = diary.image.url
+
+          try:
+            diary.image = request.FILES['image']
+          except:
+            pass
+          diary.save()
+
+          # edit_diary = Diary.objects.get(id=id)
+          if(diary.image):
             new_image_url = diary.image.url
+            print(f"prev_image_url: {prev_image_url},new_image_url: {new_image_url}")
             if prev_image_url!=new_image_url:
-                result = mainFunc(diary.image.url)    
-                diary.emotion_predict, diary.emotion_label, diary.emotion_percent = list(result.values())
-                diary.save()  
-            
-            return redirect(f'/diary/{id}')
+              result = mainFunc(diary.image.url)    
+              diary.emotion_predict, diary.emotion_label, diary.emotion_percent = list(result.values())
+              diary.save()  
+
+          return redirect(f'/diary/{id}')
         else:
             messages.add_message(request,messages.ERROR,'해당 게시물작성자로 로그인해주십시오.')
             return redirect('/')
