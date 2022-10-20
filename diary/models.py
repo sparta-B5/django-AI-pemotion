@@ -1,3 +1,4 @@
+from unittest.util import _MAX_LENGTH
 from django.db import models
 import os
 from uuid import uuid4
@@ -14,8 +15,11 @@ class Diary(models.Model):
     # 게시글일지 모델 필드
     # user = models.CharField(max_length=50, null=False)
     # pet = models.CharField(max_length=50, null=False)
-    petemotion = models.CharField(max_length=50, null=False)
-    image = models.ImageField(upload_to=upload_to_func, max_length=255 )
+    # 이미지업로드 필드
+    image = models.ImageField(upload_to=upload_to_func, max_length=255,null = True)
+    emotion_predict = models.TextField(null = True)
+    emotion_label = models.CharField(max_length=20,null = True)
+    emotion_percent = models.FloatField(null = True)
     content = models.TextField(max_length=2200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
