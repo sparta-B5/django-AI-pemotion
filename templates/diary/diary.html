@@ -48,7 +48,7 @@
                             </div>
                             <div class="card_content">
                                 <p> {% comment %} navbar 작성버튼 {% endcomment %}
-                                    <span class="feed_author profile_username"><a href="#">diary.user</a></span>
+                                    <span class="feed_author profile_username"><a href="#">{{diary.user}}</a></span>
                                     <p class="feed_content">{{ diary.content }}</p>
                                 </p>
                                 <p><time class="feed_time sm_time" datetime="{{ diary.created_at }}" title="{{ diary.created_at }}">

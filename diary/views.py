@@ -6,23 +6,32 @@ from .ml import mainFunc
 
 # Create your views here.
 def main(request):
-    #메인
     user = request.user.is_authenticated
     if user:
-        all_diary = Diary.objects.all().order_by('-created_at')
-
-        context={"diary":all_diary}
+        all_diary = Diary.objects.filter(user =request.user)
+        context={
+            "all_diary":all_diary
+        }
         return render(request,'diary/index.html', context)
     else:
         return render(request, 'user/sign-in.html')
 
 def diary_detail(request,id):
-    #게시글 상세페이지
-    target_diary= Diary.objects.get(id=id) #왼쪽id DB에 있는 id, 오른쪽이 가져온거
-    target={
-        'diary':target_diary
-    }
-    return render(request, 'diary/diary.html', target)
+    user = request.user.is_authenticated
+    if user:
+        target_diary= Diary.objects.get(id=id)
+        if request.user == target_diary.user:
+            #조건이 true - 상세페이지를 띄운다. 
+            target={
+                'diary':target_diary
+            }
+            return render(request, 'diary/diary.html', target)
+        else:
+            messages.add_message(request,messages.ERROR,'해당 게시물작성자로 로그인해주세요.')
+            return redirect('/')
+    else:
+        return redirect('/')
+
 
 def diary_create(request):
     #게시글 작성하기
@@ -81,9 +90,6 @@ def diary_update(request, id):
         else:
             messages.add_message(request,messages.ERROR,'해당 게시물작성자로 로그인해주십시오.')
             return redirect('/')
-
-
-        
 
 def diary_delete(request, id):
     diary = Diary.objects.get(id=id)
