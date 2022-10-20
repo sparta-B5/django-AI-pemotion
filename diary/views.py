@@ -7,15 +7,14 @@ from .ml import mainFunc
 # Create your views here.
 def main(request):
     #메인
-    # user = request.user.is_authenticated
-    # if user:
-    all_diary = Diary.objects.all().order_by('-created_at')
-    context={
-        "all_diary":all_diary
-    }
-    return render(request,'diary/index.html', context)
-    # else:
-    # return render(request, 'diary/index.html')
+    user = request.user.is_authenticated
+    if user:
+        all_diary = Diary.objects.all().order_by('-created_at')
+
+        context={"diary":all_diary}
+        return render(request,'diary/index.html', context)
+    else:
+        return render(request, 'user/sign-in.html')
 
 def diary_detail(request,id):
     #게시글 상세페이지
