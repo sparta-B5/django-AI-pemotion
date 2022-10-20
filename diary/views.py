@@ -6,24 +6,32 @@ from .ml import mainFunc
 
 # Create your views here.
 def main(request):
-    #메인
-    # user = request.user.is_authenticated
-    # if user:
-    all_diary = Diary.objects.all().order_by('-created_at')
-    context={
-        "all_diary":all_diary
-    }
-    return render(request,'diary/index.html', context)
-    # else:
-    # return render(request, 'diary/index.html')
+    user = request.user.is_authenticated
+    if user:
+        all_diary = Diary.objects.filter(user =request.user)
+        context={
+            "all_diary":all_diary
+        }
+        return render(request,'diary/index.html', context)
+    else:
+        return render(request, 'user/sign-in.html')
 
 def diary_detail(request,id):
-    #게시글 상세페이지
-    target_diary= Diary.objects.get(id=id) #왼쪽id DB에 있는 id, 오른쪽이 가져온거
-    target={
-        'diary':target_diary
-    }
-    return render(request, 'diary/diary.html', target)
+    user = request.user.is_authenticated
+    if user:
+        target_diary= Diary.objects.get(id=id)
+        if request.user == target_diary.user:
+            #조건이 true - 상세페이지를 띄운다. 
+            target={
+                'diary':target_diary
+            }
+            return render(request, 'diary/diary.html', target)
+        else:
+            messages.add_message(request,messages.ERROR,'해당 게시물작성자로 로그인해주세요.')
+            return redirect('/')
+    else:
+        return redirect('/')
+
 
 def diary_create(request):
     #게시글 작성하기
@@ -31,10 +39,12 @@ def diary_create(request):
         return redirect ('/')
 
     elif request.method == 'POST':
-        # my_user= request.user
+
         new_diary = Diary()
-        # new_diary.user = my_user
         new_diary.content = request.POST.get('my-content')
+        new_diary.user = request.user
+
+        #이미지 업로드
         try:
           new_diary.image = request.FILES['image']
         except:
@@ -60,33 +70,45 @@ def diary_update(request, id):
         return render(request,'diary/diaryupdate.html', context)
 
     elif request.method == 'POST':
-        diary.content = request.POST.get('my-content')
+        if diary.user == request.user:
+            
+          diary.content = request.POST.get('my-content')
 
-        # 저장여부 판별 : 이전에 저장한 이미지 주소
-        prev_image_url = ""
-        if(diary.image):
-          prev_image_url = diary.image.url
-          
-        try:
-          diary.image = request.FILES['image']
-        except:
-          pass
-        diary.save()
-        
-        # edit_diary = Diary.objects.get(id=id)
-        if(diary.image):
-          new_image_url = diary.image.url
-          print(f"prev_image_url: {prev_image_url},new_image_url: {new_image_url}")
-          if prev_image_url!=new_image_url:
-            result = mainFunc(diary.image.url)    
-            diary.emotion_predict, diary.emotion_label, diary.emotion_percent = list(result.values())
-            diary.save()  
-        
-        return redirect(f'/diary/{id}')
+          # 저장여부 판별 : 이전에 저장한 이미지 주소
+          prev_image_url = ""
+          if(diary.image):
+            prev_image_url = diary.image.url
+
+          try:
+            diary.image = request.FILES['image']
+          except:
+            pass
+          diary.save()
+
+          # edit_diary = Diary.objects.get(id=id)
+          if(diary.image):
+            new_image_url = diary.image.url
+            print(f"prev_image_url: {prev_image_url},new_image_url: {new_image_url}")
+            if prev_image_url!=new_image_url:
+              result = mainFunc(diary.image.url)    
+              diary.emotion_predict, diary.emotion_label, diary.emotion_percent = list(result.values())
+              diary.save()  
+
+          return redirect(f'/diary/{id}')
+        else:
+            messages.add_message(request,messages.ERROR,'해당 게시물작성자로 로그인해주십시오.')
+            return redirect('/')
 
 def diary_delete(request, id):
-    diary = Diary.objects.get(id=id)
-    diary.delete()
+    user = request.user.is_authenticated
+    if user:
+        delete_diary = Diary.objects.get(id=id)
+        if request.user == delete_diary.user:
+            delete_diary.delete()
+            return redirect('/')
+        else:
+            messages.add_message(request,messages.ERROR,'해당 게시물작성자로 로그인해주세요.')
+            return redirect('/')
 
     return redirect('/')
 

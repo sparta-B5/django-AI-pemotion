@@ -2,6 +2,8 @@ from unittest.util import _MAX_LENGTH
 from django.db import models
 import os
 from uuid import uuid4
+# from  앱이름.파일명 import 사용할함수/클래스
+from user.models import User
 
 def upload_to_func(instance, filename):
     upload_to = f'diary/'
@@ -13,7 +15,7 @@ def upload_to_func(instance, filename):
 
 class Diary(models.Model):
     # 게시글일지 모델 필드
-    # user = models.CharField(max_length=50, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     # pet = models.CharField(max_length=50, null=False)
     # 이미지업로드 필드
     image = models.ImageField(upload_to=upload_to_func, max_length=255,null = True)
@@ -32,4 +34,3 @@ class Diary(models.Model):
 
     def __str__(self):
         return f'{self.id} | {self.created_at} | {self.content}'
-
