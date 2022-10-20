@@ -61,7 +61,18 @@ def diary_update(request, id):
 
     elif request.method == 'POST':
         diary.content = request.POST.get('my-content')
+        prev_image_url = diary.image.url
+        try:
+          diary.image = request.FILES['image']
+        except:
+          pass
         diary.save()
+
+        new_image_url = diary.image.url
+        if prev_image_url!=new_image_url:
+          result = mainFunc(diary.image.url)    
+          diary.emotion_predict, diary.emotion_label, diary.emotion_percent = list(result.values())
+          diary.save()  
         
         return redirect(f'/diary/{id}')
 
