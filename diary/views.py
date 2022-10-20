@@ -30,7 +30,7 @@ def diary_create(request):
         return redirect ('/')
 
     elif request.method == 'POST':
-        
+
         new_diary = Diary()
         new_diary.content = request.POST.get('my-content')
         new_diary.user = request.user
@@ -61,21 +61,29 @@ def diary_update(request, id):
         return render(request,'diary/diaryupdate.html', context)
 
     elif request.method == 'POST':
-        diary.content = request.POST.get('my-content')
-        prev_image_url = diary.image.url
-        try:
-          diary.image = request.FILES['image']
-        except:
-          pass
-        diary.save()
+        if diary.user == request.user:
+            
+            diary.content = request.POST.get('my-content')
+            prev_image_url = diary.image.url
+            try:
+                diary.image = request.FILES['image']
+            except:
+                pass
+            diary.save()
 
-        new_image_url = diary.image.url
-        if prev_image_url!=new_image_url:
-          result = mainFunc(diary.image.url)    
-          diary.emotion_predict, diary.emotion_label, diary.emotion_percent = list(result.values())
-          diary.save()  
+            new_image_url = diary.image.url
+            if prev_image_url!=new_image_url:
+                result = mainFunc(diary.image.url)    
+                diary.emotion_predict, diary.emotion_label, diary.emotion_percent = list(result.values())
+                diary.save()  
+            
+            return redirect(f'/diary/{id}')
+        else:
+            messages.add_message(request,messages.ERROR,'해당 게시물작성자로 로그인해주십시오.')
+            return redirect('/')
+
+
         
-        return redirect(f'/diary/{id}')
 
 def diary_delete(request, id):
     diary = Diary.objects.get(id=id)
