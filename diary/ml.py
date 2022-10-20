@@ -7,7 +7,7 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array
 modal_path = 'static/model/model.h5'
 model = load_model(modal_path)
 
-classes = {0: 'angry', 1: 'happy', 2: 'relaxed', 3: 'sad'}
+classes = {0: 'angry', 1: 'happy', 2: 'sad'}
 
 def mainFunc(img_path):
     img_path = img_path.strip("/") 
