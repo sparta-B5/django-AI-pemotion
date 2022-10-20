@@ -35,11 +35,21 @@ def diary_create(request):
         new_diary = Diary()
         # new_diary.user = my_user
         new_diary.content = request.POST.get('my-content')
+        try:
+          new_diary.image = request.FILES['image']
+        except:
+          new_diary.image = None
         new_diary.save()
-        # 게시글 작성후 작성한 게시글 상세페이지로 이동
-        new_diary_id = Diary.objects.last().id
         messages.add_message(request,messages.SUCCESS,'게시글이 작성되었습니다.')
-        return redirect (f'/diary/{new_diary_id}')
+
+        # 직전 감정일지의 이미지로 머신러닝로드 
+        last_diary = Diary.objects.last()
+        if last_diary.image:
+          result = mainFunc(last_diary.image.url)    
+          last_diary.emotion_predict, last_diary.emotion_label, last_diary.emotion_percent = list(result.values())
+          last_diary.save()
+        # 게시글 작성후 작성한 게시글 상세페이지로 이동
+        return redirect (f'/diary/{last_diary.id}')
 
 def diary_update(request, id):
     diary = Diary.objects.get(id=id)
