@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import User
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
@@ -32,13 +33,13 @@ def sign_in(request):
     elif request.method == 'POST':
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
-        me = User.objects.get(username=username)  # 사용자 불러오기
-         
-        if me.password == password:  # 저장된 사용자의 패스워드와 입력받은 패스워드 비교
-            request.session['user'] = me.username  # 세션에 사용자 이름 저장
-        return  render(request, 'base.html')  
-    else: 
-        return render(request, 'user/sign-in.html')  
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+           login(request, user)   
+           return render(request, 'base.html')  
+        else: 
+            return render(request, 'user/sign-in.html')
     
     
     
