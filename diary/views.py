@@ -30,10 +30,12 @@ def diary_create(request):
         return redirect ('/')
 
     elif request.method == 'POST':
-        # my_user= request.user
+        
         new_diary = Diary()
-        # new_diary.user = my_user
         new_diary.content = request.POST.get('my-content')
+        new_diary.user = request.user
+
+        #이미지 업로드
         try:
           new_diary.image = request.FILES['image']
         except:
