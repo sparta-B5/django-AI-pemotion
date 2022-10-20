@@ -92,8 +92,15 @@ def diary_update(request, id):
             return redirect('/')
 
 def diary_delete(request, id):
-    diary = Diary.objects.get(id=id)
-    diary.delete()
+    user = request.user.is_authenticated
+    if user:
+        delete_diary = Diary.objects.get(id=id)
+        if request.user == delete_diary.user:
+            delete_diary.delete()
+            return redirect('/')
+        else:
+            messages.add_message(request,messages.ERROR,'해당 게시물작성자로 로그인해주세요.')
+            return redirect('/')
 
     return redirect('/')
 
