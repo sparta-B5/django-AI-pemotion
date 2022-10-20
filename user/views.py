@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import User
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import authenticate, login
+
 
 # Create your views here.
 
@@ -16,11 +19,34 @@ def sign_up(request) :
         password = request.POST.get('password')
         passwordcheck = request.POST.get('passwordcheck')
         if password == passwordcheck:
-            User.objects.create_user(username=username, password=password, name=name)
-            return HttpResponse("회원가입 완료!")
+            User.objects.create_user(username=username, password=password, name=name) 
+            return render(request,'user/sign-in.html')
         else:
             return HttpResponse("비밀번호 확인 틀렸습니다")
             
        
-   #로그인
+#로그인
+
+def sign_in(request):
+    if request.method == "GET":
+     return render(request, 'user/sign-in.html')
+    elif request.method == 'POST':
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+           login(request, user)   
+           return redirect('/')  
+        else: 
+            return render(request, 'user/sign-in.html')
+    
+    
+#로그아웃
+def sign_out(request):
+    auth_logout(request)
+    #로그아웃되면 다시 로그인 화면으로
+    return render(request, 'user/sign-in.html')
    
+         
+        
