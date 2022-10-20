@@ -25,6 +25,12 @@
                     <label for="name">이름</label>
                     <input type="text" class="form-control" id="name" name="name">
                 </div>
+                
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                 {{ error }}
+                    </div>
+                    {% endif %}
                 <hr>
                 <div style="float: center">
                     <button type="submit" class="btn btn-primary">회원가입</button>
