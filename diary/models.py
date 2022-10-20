@@ -1,7 +1,7 @@
 from django.db import models
 
 class Diary(models.Model):
-    #게시글일지 모델 필드
+    # 게시글일지 모델 필드
     # user = models.CharField(max_length=50, null=False)
     # pet = models.CharField(max_length=50, null=False)
     petemotion = models.CharField(max_length=50, null=False)

@@ -42,28 +42,20 @@ def diary_create(request):
 
 def diary_update(request, id):
     diary = Diary.objects.get(id=id)
-    if request.method == 'POST':
-        update_diary = diary()
-        update_diary.auther= update_diary
-        update_diary= request.POST.get('my-content')
-        
-        update_diary.save()
-        
-        return render(request, 'index.html')
-    else:
-       return redirect ('/') 
+    if request.method == 'GET':
+        context={
+            'diary':diary
+        }
+        return render(request,'diary/diaryupdate.html', context)
 
-def diary_delete(request,id):
-    target_diary = Diary.objects.get(id=id)
-    # 게시물 작성자, 관리자만 삭제 가능
-    if (target_diary.author == request.user.username):
-        target_diary.delete()
-        messages.add_message(request,messages.SUCCESS,'삭제되었습니다.')
-        return redirect('/')
-    elif request.user.is_staff:
-        target_diary.delete()
-        messages.add_message(request,messages.SUCCESS,'관리자 권한으로 삭제되었습니다.')
-        return redirect('/')
-    else:
-        messages.add_message(request,messages.ERROR,'본인 게시글이 아닙니다.')
-        return redirect(f'/diary/{id}') 
+    elif request.method == 'POST':
+        diary.content = request.POST.get('my-content')
+        diary.save()
+        
+        return redirect(f'/diary/{id}')
+
+def diary_delete(request, id):
+    diary = Diary.objects.get(id=id)
+    diary.delete()
+
+    return redirect('/')
