@@ -17,12 +17,12 @@
 {% endblock %}
 
 {% block content %}
-    <section class="section_feed_detail feed_card_text">
+    <section class="section_feed_detail">
         <div class="container">
-            <div class="feed_card feed_card_detail flex">
+            <div class="feed_card_detail flex {% if diary.image %} feed_card{% else %} feed_card feed_card_text {% endif%}" >
                 <div class="feed_card_left">
                     <div class="feed-images">
-                        <img src="https://s3.ap-northeast-2.amazonaws.com/blog.spartacodingclub.kr/1655106626116-nb_og%20image.jpg">
+                        <img src="{{ diary.image.url }}">
                     </div>
                 </div>
                 <div class="feed_card_right">
@@ -48,7 +48,7 @@
                             </div>
                             <div class="feed_content card_content">
                                 <p> {% comment %} navbar 작성버튼 {% endcomment %}
-                                    <span class="feed_author profile_username"><a href="#">{{ diary.user }}</a></span>
+                                    <span class="feed_author profile_username"><a href="#">diary.user</a></span>
                                     {{ diary.content }}
                                 </p>
                                 <p><time class="feed_time sm_time" datetime="{{ diary.created_at }}" title="{{ diary.created_at }}">
@@ -57,6 +57,17 @@
                             </div>
                         </div>
                     </div>
+                    <di8v class="card_footer">
+
+                        <div class="diary_emotion feed_line flex flex-align-items-center">
+                            <div class="profile_image">
+                                <img src="/static/images/emoji_{{diary.emotion_label}}.png">
+                            </div>
+                            <div class="diary_emotion_content card_content">
+                                <p> {{diary.emotion_label}} <span class="font-sm color-gray">( {{diary.emotion_percent}}% )</span></p>
+                            </div>
+                        </div>
+                    </di8v>
                 </div>
             </div>
         </div>
