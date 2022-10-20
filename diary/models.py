@@ -18,5 +18,5 @@ class Diary(models.Model):
   image = models.ImageField(upload_to=upload_to_func, max_length=255,null = True)
   emotion_predict = models.TextField(null = True)
   emotion_label = models.CharField(max_length=20,null = True)
-  emotion_persent = models.FloatField(null = True)
+  emotion_percent = models.FloatField(null = True)
   
