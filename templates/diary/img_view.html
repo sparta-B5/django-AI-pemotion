@@ -5,5 +5,7 @@
     <img src="{{diary.image.url}}">
     <br><br>
   {% endif %}
+  <p>예측 결과 : {{diary.emotion_predict}}</p>
+  <p>예측 감정 : {{diary.emotion_label}} | {{diary.emotion_persent}}%</p>
 </div>
 {% endblock %}
