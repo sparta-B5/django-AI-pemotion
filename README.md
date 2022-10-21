@@ -51,7 +51,7 @@
 [강아지 감정예측](https://www.kaggle.com/datasets/devzohaib/dog-emotions-prediction)
 
 ## 프로젝트 시연영상
-![B5팀 프로젝트 시연영상](http://img.youtube.com/vi/b66aOiNVh2A/0.jpg)
+[![B5팀 프로젝트 시연영상](http://img.youtube.com/vi/b66aOiNVh2A/0.jpg)](https://youtu.be/b66aOiNVh2A)
 
 ## Contributors
 <table>
