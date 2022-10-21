@@ -8,7 +8,7 @@ from .ml import mainFunc
 def main(request):
     user = request.user.is_authenticated
     if user:
-        all_diary = Diary.objects.filter(user =request.user)
+        all_diary = Diary.objects.filter(user =request.user).order_by("-created_at")
         context={
             "all_diary":all_diary
         }

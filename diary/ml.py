@@ -33,7 +33,7 @@ def predict_emotion(img_path):
     result = {
         'predict' : {value: probability[key] for key, value in classes.items()},
         'label':emotion_label,
-        'percent': probability_max*100,
+        'percent': round(probability_max*100,2),
     }
     return result
 
