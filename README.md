@@ -39,8 +39,8 @@
 | 로그아웃 | GET | /user/sign-out |  | redirect(“/signin”) |
 | 개인 일지 목록 | GET | /diary/{id} | {’username’:usename} | DiaryModel |
 | 일지 작성 | POST | /diary | {’content’:content, ‘petimage’:petimage} |  |
-| 일지 삭제 | GET | /diary/delete | {'id':id} | redirect(”/diary/<usename>”)|
-| 일지 수정 | POST | /diary/update | {’id’:id, 'content':content} |  |
+| 일지 삭제 | GET | /diary/delete/{id} | {'id':id} | redirect(”/diary/<usename>”)|
+| 일지 수정 | POST | /diary/update/{id} | {’id’:id, 'content':content} |  |
 
 ## 사용된 기술
 - Git, GitHub
