@@ -1,3 +1,14 @@
+
+/* btn */
+.btn.btn_default_style{
+    background-color: #AA5FDC;
+    border-color: #AA5FDC;
+    height: 50px;
+}
+.font_point{
+    color: #AA5FDC !important;
+}
+
 body {
     background-color: #FAFAFA;
     height: 100%
@@ -5,12 +16,11 @@ body {
 .wrap{
     height: 100vh;
 }
-
 section {
     font-size: 14px;
     text-align: center;
     width: 100%;
-    min-height: 80vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -26,28 +36,27 @@ img {
     margin: 30px 0
 }
 
-/* btn */
-.btn.btn_default_style{
-    background-color: #AA5FDC;
-    border-color: #AA5FDC;
-    height: 50px;
-}
-.font_point{
-    color: #AA5FDC !important;
-}
-
-
-.signin_top {
+.signup_top {
     background-color: white;
     width: 350px;
+    /* height: 480px; */
     border: 1px solid rgba(0, 0, 0, 0.18);
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
-.signin_img {
+.signup_img {
     display: flex;
     align-items: center;
     justify-content: center
+}
+
+.signup_txt {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+    color: rgba(142, 142, 142, 1);
+    margin: 0 40px 20px
 }
 
 .floating_form {
@@ -70,45 +79,14 @@ img {
     width: 100%
 }
 
-.signin_or {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.hr_left {
-    border: 1px silver;
-    margin-left: 30px;
-    width: 100px
-}
-
-.hr_right {
-    border: 1px silver;
-    margin-right: 30px;
-    width: 100px
-}
-
-.signin_check {
-    font-size: 12px;
-    color: midnightblue;
-}
-
-.a_1 {
-    font-weight: bold;
-    color: #00376B;
-    text-decoration: none;
-    cursor: pointer
-}
-
-.a_2 {
+.a_signup {
     font-weight: bold;
     color: cornflowerblue;
     text-decoration: none;
     cursor: pointer
 }
 
-.signin_bottom {
+.signup_bottom {
     background-color: white;
     width: 350px;
     height: 70px;
@@ -118,7 +96,7 @@ img {
 }
 
 footer {
-    color: #333;
+    color: #8e8e8e;
     padding: 20px 0 ;
     font-size: 12px;
     font-weight: 400;
@@ -130,22 +108,22 @@ footer {
     left: 0;
     width: 100%;
 }
+
 .alert-danger{
     margin: 0 30px;
     word-break: break-all;
 }
 
-
 /*  */
 .wrap.bg{
     background-color: #FFE17D;
 }
-.wrap.bg .signin_top{
+.wrap.bg .signin_top, .wrap.bg .signup_top{
     border:0;
     border-radius: 20px;
     padding: 8px 0 16px;
 }
-.wrap.bg .signin_bottom{
+.wrap.bg .signin_bottom, .wrap.bg .signup_bottom{
     border:0;
     border-radius: 20px;
 }
