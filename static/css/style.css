@@ -47,6 +47,10 @@ header nav .flex{
     justify-content: space-between;
     align-items: center;
 }
+header nav .navbar_logo img{
+    height: 24px;
+
+}
 header nav ul.navbar_menu{
     display: flex;
     -webkit-box-align: center;
@@ -98,13 +102,22 @@ footer {
 .modalFeedForm .form-control:focus{
     box-shadow: unset;
 }
+.modalFeedForm .image_name{
+    margin: 5px 0;
+    font-size: 0.8em;
+    color: #333;
+}
 .modalFeedForm .btn_feed_submit,.modalFeedForm .btn_feed_submit:hover{
     padding: 0;
     margin: 0;
     font-weight: 600;
-    color: #0095f6
+    color: #AA5FDC;
+    font-size: 18px;
 }
 
+.modalFeedForm .modal-footer{
+
+}
 
 @media (max-width: 992px) {
     header nav ul.navbar_menu > li > a, header nav ul.navbar_menu > li > button, header nav ul.navbar_menu > li .dropdown>button {

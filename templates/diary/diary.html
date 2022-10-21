@@ -22,13 +22,13 @@
             <div class="feed_card_detail feed_card flex " id="feed_{{ diary.id }}">
                 <div class="feed_card_left">
                     <div class="feed-images">
-                        <img src="{% if diary.image %} {{ diary.image.url }} {% else %}#{% endif%}">
+                        <img src="{% if diary.image %} {{ diary.image.url }}{% endif%}">
                     </div>
                 </div>
                 <div class="feed_card_right">
                     <div class="card_header list_profile">
                         <div class="profile_image">
-                            <img src="https://intermusicakorea.com/common/img/default_profile.png">
+                            <img src="{% static 'images/profile_image.jpg' %}">
                         </div>
                         <div class="profile_meta">
                             <div class="feed_author profile_username">
@@ -44,7 +44,7 @@
                     <div class="card_body">
                         <div class="feed_line flex">
                             <div class="profile_image">
-                                <img src="https://intermusicakorea.com/common/img/default_profile.png">
+                                <img src="{% static 'images/profile_image.jpg' %}">
                             </div>
                             <div class="card_content">
                                 <p> {% comment %} navbar 작성버튼 {% endcomment %}
