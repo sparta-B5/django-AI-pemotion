@@ -24,30 +24,6 @@
 {% block content %}
 <div class="container flex">
     <div class="main">
-        <section class="section_story">
-            <ul class="story_list flex">
-                <li>
-                    <div class="story_card flex flex_column">
-                        <div class="profile_image">
-                            <img src="https://intermusicakorea.com/common/img/default_profile.png">
-                        </div>
-                        <div class="username">
-                            <span>LeeHyunji</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="story_card flex flex_column">
-                        <div class="profile_image">
-                            <img src="https://intermusicakorea.com/common/img/default_profile.png">
-                        </div>
-                        <div class="username">
-                            <span>LeeHyunji</span>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </section>
         <section class="section_feed">
             <!-- 작성 된 피드가 나오는 곳 -->
             <div class="feed_list">
@@ -56,7 +32,7 @@
                 <div class="{% if diary.image %} feed_card{% else %} feed_card feed_card_text {% endif%}"  id="feed_{{ diary.id }}">
                     <div class="card_header list_profile">
                         <div class="profile_image">
-                            <img src="https://intermusicakorea.com/common/img/default_profile.png">
+                            <img src="{% static 'images/profile_image.jpg' %}">
                         </div>
                         <div class="profile_meta">
                             <div class="feed_author profile_username">
@@ -81,6 +57,10 @@
                                 <div class="diary_emotion_content card_content">
                                     <p> {{diary.emotion_label}} <span class="font-sm color-gray">( {{diary.emotion_percent}}% )</span></p>
                                 </div>
+                            </div>
+                        {% else %}
+                            <div class="feed-images">
+                                <img src=" ">
                             </div>
                         {% endif%}
                         <div class="card_content">
